@@ -1,6 +1,6 @@
-# TIFF to JPEG Converter using OpenCV
+# TIFF to JPEG Converter with OpenCV
 
-This tool converts 16-bit TIFF images (like those from Time-of-Flight (ToF) depth and amplitude sensors) into 8-bit JPEG images using OpenCV. It automatically normalizes and optionally rotates the image.
+This script converts 16-bit TIFF images (like those from Time-of-Flight (ToF) depth and amplitude sensors) into 8-bit JPEG images using OpenCV. It automatically normalizes and optionally rotates the image.
 
 | Type | Before | After
 | --- | --- | ---
