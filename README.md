@@ -4,8 +4,8 @@ This script converts 16-bit TIFF images (like those from Time-of-Flight (ToF) de
 
 | Type | Before | After
 | --- | --- | ---
-| Amplitude (TOF) | ![before1](sample-images/tof_amp_before.png) | ![after1](sample-images/tof_amp_after.jpg) |
-| Depth (TOF) | ![before2](sample-images/tof_dep_before.png) | ![after2](sample-images/tof_dep_after.jpg) |
+| Amplitude (ToF) | ![before1](sample-images/tof_amp_before.png) | ![after1](sample-images/tof_amp_after.jpg) |
+| Depth (ToF) | ![before2](sample-images/tof_dep_before.png) | ![after2](sample-images/tof_dep_after.jpg) |
 
 ---
 
