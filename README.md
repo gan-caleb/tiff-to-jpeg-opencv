@@ -4,8 +4,8 @@ This tool converts 16-bit TIFF images (like those from Time-of-Flight (ToF) dept
 
 | Type | Before | After
 | --- | --- | ---
-| Amplitude (TOF) | [before](https://github.com/gan-caleb/tiff-to-jpeg-opencv/blob/main/sample-images/tof_amp_before.png) | blah |
-| Depth (TOF) | Show file differences that haven't been staged | blah |
+| Amplitude (TOF) | ![before](sample-images/tof_amp_before.png) | ![after](sample-images/tof_amp_after.jpg) |
+| Depth (TOF) | ![before](sample-images/tof_def_before.png) | ![after](sample-images/tof_def_after.jpg) |
 
 ---
 
