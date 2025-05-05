@@ -2,6 +2,11 @@
 
 This tool converts 16-bit TIFF images (like those from Time-of-Flight (ToF) depth and amplitude sensors) into 8-bit JPEG images using OpenCV. It automatically normalizes and optionally rotates the image.
 
+| Type | Before | After
+| --- | --- | ---
+| Amplitude (TOF) | before | blah |
+| Depth (TOF) | Show file differences that haven't been staged | blah |
+
 ---
 
 ## 📁 Folder Structure
@@ -9,6 +14,7 @@ This tool converts 16-bit TIFF images (like those from Time-of-Flight (ToF) dept
 tiff-to-jpeg-opencv/
 ├── input_tiff/
 ├── output_jpeg/
+├── sample-images/
 ├── src/
 │   └── tiff_to_jpeg_converter.py
 ├── requirements.txt
