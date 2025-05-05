@@ -55,6 +55,8 @@ Edit the top section of `tiff_to_jpeg_converter.py` to adjust:
 
 - `NORMALIZATION_METHOD` – `'linear'` (default) or `'hist_eq'`
 
+- `DEPTH_CLIP_MIN` and `DEPTH_CLIP_MAX` for threshold
+
 ---
 
 ## 📝 License

@@ -7,22 +7,37 @@ import numpy as np
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 INPUT_FOLDER = os.path.join(SCRIPT_DIR, "input-tiff")
 OUTPUT_FOLDER = os.path.join(SCRIPT_DIR, "output-jpeg")
-JPEG_QUALITY = 95                    # Range: 0 (low) to 100 (best)
-SCALE_FACTOR = 1.0                   # e.g., 0.5 for half-size, 1.0 for original
-ROTATE_IMAGE = True                 # Set to True to rotate image
-ROTATION_ANGLE = 180                 # Degrees: 90, 180, 270
-NORMALIZATION_METHOD = 'linear'     # Options: 'linear', 'hist_eq'
+JPEG_QUALITY = 95  # Range: 0 (low) to 100 (best)
+SCALE_FACTOR = 1.0  # e.g., 0.5 for half-size, 1.0 for original
+ROTATE_IMAGE = True  # Set to True to rotate image
+ROTATION_ANGLE = 180  # Degrees: 90, 180, 270
+NORMALIZATION_METHOD = 'linear'  # Options: 'linear', 'hist_eq'
+DEPTH_CLIP_MIN = 1000  # mm
+DEPTH_CLIP_MAX = 3000  # mm
 
 # ======================================================
 
-def normalize_image(img, method='linear'):
-    if method == 'linear':
-        img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
+def normalize_image(img, method='linear', is_depth=False, clip_min=None, clip_max=None):
+    if is_depth:
+        # Mask out extreme background/far values before inversion
+        if clip_min is not None and clip_max is not None:
+            img_clipped = np.clip(img, clip_min, clip_max)
+            mask = (img >= clip_min) & (img <= clip_max)
+            img_inverted = clip_max - img_clipped
+            img_normalized = cv2.normalize(img_inverted, None, 0, 255, cv2.NORM_MINMAX)
+            img_result = np.zeros_like(img_normalized, dtype=np.uint8)
+            img_result[mask] = img_normalized[mask]  # apply only to valid pixels
+            return img_result
+        else:
+            # fallback
+            img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
     elif method == 'hist_eq' and len(img.shape) == 2:
         img = cv2.equalizeHist((img / 256).astype(np.uint8)) * 1.0
     else:
         img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
+
     return img.astype(np.uint8)
+
 
 def convert_tiff_to_jpeg(input_folder, output_folder):
     os.makedirs(output_folder, exist_ok=True)
@@ -35,13 +50,21 @@ def convert_tiff_to_jpeg(input_folder, output_folder):
 
             # Load 16-bit image
             img = cv2.imread(filepath, cv2.IMREAD_UNCHANGED)
-
             if img is None:
                 print(f"Skipped (not readable): {filename}")
                 continue
 
-            # Normalize to 8-bit
-            img_8bit = normalize_image(img, NORMALIZATION_METHOD)
+            # Auto-detect image type
+            is_depth = 'dep' in filename.lower()
+            is_amplitude = 'amp' in filename.lower()
+
+            img_8bit = normalize_image(
+                img,
+                method=NORMALIZATION_METHOD,
+                is_depth=is_depth,
+                clip_min=DEPTH_CLIP_MIN if is_depth else None,
+                clip_max=DEPTH_CLIP_MAX if is_depth else None
+            )
 
             # Resize if needed
             if SCALE_FACTOR != 1.0:
@@ -57,13 +80,12 @@ def convert_tiff_to_jpeg(input_folder, output_folder):
                 elif ROTATION_ANGLE == 270:
                     img_8bit = cv2.rotate(img_8bit, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
-            # Output path
+            # Save with original filename
             base_name = os.path.splitext(filename)[0]
             output_path = os.path.join(output_folder, f"{base_name}.jpg")
-
-            # Save JPEG
             cv2.imwrite(output_path, img_8bit, [int(cv2.IMWRITE_JPEG_QUALITY), JPEG_QUALITY])
             print(f"Saved: {output_path}")
+
 
     print("All images processed.")
 
