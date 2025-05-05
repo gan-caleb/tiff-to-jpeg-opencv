@@ -12,11 +12,11 @@ This tool converts 16-bit TIFF images (like those from Time-of-Flight (ToF) dept
 ## 📁 Folder Structure
 ```
 tiff-to-jpeg-opencv/
-├── input_tiff/
-├── output_jpeg/
 ├── sample-images/
 ├── src/
 │   └── tiff_to_jpeg_converter.py
+│   └── input-tiff/
+│   └── output-jpeg/
 ├── requirements.txt
 ├── README.md
 ```
@@ -34,7 +34,7 @@ tiff-to-jpeg-opencv/
    pip install -r requirements.txt
    ```
 
-3. **Drop your `.tiff images` into the `input_tiff/` folder**
+3. **Drop your `.tiff` images into the `input_tiff/` folder**
 
 4. **Run the converter**
    ```
