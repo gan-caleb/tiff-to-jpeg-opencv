@@ -12,8 +12,8 @@ SCALE_FACTOR = 1.0  # e.g., 0.5 for half-size, 1.0 for original
 ROTATE_IMAGE = True  # Set to True to rotate image
 ROTATION_ANGLE = 180  # Degrees: 90, 180, 270
 NORMALIZATION_METHOD = 'linear'  # Options: 'linear', 'hist_eq'
-DEPTH_CLIP_MIN = 1000  # mm
-DEPTH_CLIP_MAX = 3000  # mm
+DEPTH_CLIP_MIN = 1000     # Increase to make near objects darker
+DEPTH_CLIP_MAX = 3000     # Decrease to make far objects brighter
 
 # ======================================================
 
