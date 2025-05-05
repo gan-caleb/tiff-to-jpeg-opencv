@@ -5,9 +5,8 @@ import numpy as np
 # ================= USER CONFIGURATION =================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
-INPUT_FOLDER = os.path.join(BASE_DIR, "input_tiff")
-OUTPUT_FOLDER = os.path.join(BASE_DIR, "output_jpeg")
+INPUT_FOLDER = os.path.join(SCRIPT_DIR, "input-tiff")
+OUTPUT_FOLDER = os.path.join(SCRIPT_DIR, "output-jpeg")
 JPEG_QUALITY = 95                    # Range: 0 (low) to 100 (best)
 SCALE_FACTOR = 1.0                   # e.g., 0.5 for half-size, 1.0 for original
 ROTATE_IMAGE = True                 # Set to True to rotate image
