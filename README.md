@@ -54,3 +54,10 @@ Edit the top section of `tiff_to_jpeg_converter.py` to adjust:
 - `ROTATION_ANGLE` – 90, 180, 270 degrees
 
 - `NORMALIZATION_METHOD` – `'linear'` (default) or `'hist_eq'`
+
+---
+
+## 📝 License
+
+This project is licensed under the [MIT License](LICENSE).
+
